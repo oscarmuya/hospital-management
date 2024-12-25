@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: avenir, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: #f3f3f1;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --primary-color: #215ea5;
+  --trans1: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+  --color-18: #c1d3e4;
+  --color-15: #012241;
+  scroll-behavior: smooth;
+}
+
+.full-static {
+  height: 100vh;
+}
+
+.primary-button {
+  transition: var(
+    --trans1,
+    border-color 0.4s ease 0s,
+    background-color 0.4s ease 0s
+  );
+}
+.primary-button {
+  background-color: #012241;
+}
+.primary-button:hover {
+  background-color: #004e97;
+  border-color: #012241;
+}
+
+figure.worldmap__figure-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.align__center_v {
+  transform: translate(-50%, -50%);
+}
+
+.bottom-shadow {
+  box-shadow: 0px 61px 20px -3px rgba(0, 0, 0, 0.15);
+}
+
+.align__center_hv {
+  transform: translate(-50%, -50%);
+}
+
+body::-webkit-scrollbar {
+  width: 14px; /* width of the entire scrollbar */
+  padding: 5;
+}
+body::-webkit-scrollbar-track {
+  background: #c1d3e4; /* color of the tracking area */
+  padding: 5;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #012241; /* color of the scroll thumb */
+  border: 5px transparent;
+  padding: 5;
+}
+
+.hide-scroller::-webkit-scrollbar {
+  display: none;
+  opacity: 0;
+}
+.hide-scroller::-webkit-scrollbar-track {
+  display: none;
+  opacity: 0;
+}
+.hide-scroller::-webkit-scrollbar-thumb {
+  display: none;
+  opacity: 0;
+}
+
+.scroller::-webkit-scrollbar,
+.MuiDataGrid-virtualScroller.css-axafay-MuiDataGrid-virtualScroller::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+  height: 10px; /* width of the entire scrollbar */
+  padding: 5;
+}
+.scroller::-webkit-scrollbar-track,
+.MuiDataGrid-virtualScroller.css-axafay-MuiDataGrid-virtualScroller::-webkit-scrollbar-track {
+  background: #c1d3e4; /* color of the tracking area */
+  padding: 5;
+}
+.scroller::-webkit-scrollbar-thumb,
+.MuiDataGrid-virtualScroller.css-axafay-MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb {
+  background-color: #919191; /* color of the scroll thumb */
+  border: 5px transparent;
+  padding: 5;
+}
+
+.bg__col {
+  background-color: #f3f3f1;
+}
+button {
+  transition: var(
+    --trans1,
+    border-color 0.4s ease 0s,
+    background-color 0.4s ease 0s
+  );
+}
+.transition__smooth {
+  transition: all 0.35s ease;
+}
+
+input::placeholder {
+  color: gray;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
+
+.height__fill {
+  height: calc(100vh);
+}
+
+.center__50_50 {
+  transform: translate(0, -50%);
+}
+
+.clients__div-container {
+  animation: slide infinite 90s linear;
+}
+.countries__div-container {
+  animation: slide infinite 90s linear;
+  animation-delay: 22.5s;
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(50%, 0);
+    transform-origin: right;
+  }
+  25% {
+    transform: translate(-150%, 0);
+    transform-origin: right;
+  }
+  50% {
+    transform: translate(50%, 0);
+    transform-origin: right;
+  }
+  75% {
+    transform: translate(-150%, 0);
+    transform-origin: right;
+  }
+  100% {
+    transform: translate(50%, 0);
+    transform-origin: right;
+  }
+}
+
+/* gradient text */
+
+.boujee-text {
+  --bg-size: 400%;
+  --color-one: #215ea5;
+  --color-two: #f16525;
+  font-size: clamp(3rem, 25vmin, 3.5rem);
+  background: linear-gradient(
+      90deg,
+      var(--color-one),
+      var(--color-two),
+      var(--color-one)
+    )
+    0 0 / var(--bg-size) 100%;
+  color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 767px) {
+  .boujee-text {
+    font-size: clamp(2.5rem, 25vmin, 1.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .boujee-text {
+    animation: move-bg 8s linear infinite;
+  }
+  @keyframes move-bg {
+    to {
+      background-position: var(--bg-size) 0;
+    }
+  }
+}
+
+/* end gradient text */
+
+@keyframes rise {
+  0% {
+    bottom: -100px;
+    transform: translateX(0);
+  }
+  50% {
+    transform: translate(100px);
+  }
+  100% {
+    bottom: 1080px;
+    transform: translateX(-200px);
+  }
+}
+
+@font-face {
+  font-family: "avenir";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../src/assets/fonts/normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "avenir";
+  font-weight: 700;
+  font-style: bold;
+  src: url("../src/assets/fonts/bold.woff2") format("woff2");
+}
+
+body.body-static {
+  overflow: hidden;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+  opacity: 0;
+}
+
+.navigation__tools li h2:after {
+  content: " ";
+  position: absolute;
+  background: linear-gradient(to right, #2fbbe6, #65b245) fixed !important;
+  top: 100%;
+  margin-top: 4px;
+  border-radius: 3px;
+  left: 0%;
+  width: 100%;
+  height: 3px;
+  transform: scaleX(0);
+  transition: transform 0.2s;
+  transform-origin: right center;
+  box-sizing: border-box;
+  display: block;
+}
+
+.navigation__tools li:hover h2:after,
+.navigation__tools li.hover h2:after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
