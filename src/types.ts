@@ -24,4 +24,10 @@ export type appointmentProps = {
   patient_id: string;
   phone: string;
   time: string;
+  finished: boolean;
+  cancelled: boolean;
+  confirmed: boolean;
+  finished_time: any;
+  cancelled_time: any;
+  confirmed_time: any;
 };

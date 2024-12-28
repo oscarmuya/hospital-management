@@ -148,7 +148,7 @@ const Dashboard = () => {
     <Login />
   ) : (
     <div className="relative full-static flex bg-gray-100 ">
-      {patientFormIsShown && (
+      {(patientFormIsShown || doctorFormIsShown || appointmentFormIsShown) && (
         <div
           style={{ height: "100vh", width: "100vw" }}
           className="fixed flex items-center justify-center top-0 left-0 bg-black/50 z-50"
@@ -166,53 +166,17 @@ const Dashboard = () => {
             </button>
           </div>
           <div className="p-3 z-10 md:w-1/2">
-            <PatientForm setPatientFormIsShown={setPatientFormIsShown} />
-          </div>
-        </div>
-      )}
-      {doctorFormIsShown && (
-        <div
-          style={{ height: "100vh", width: "100vw" }}
-          className="fixed flex items-center justify-center top-0 left-0 bg-black/50 z-50"
-        >
-          <div
-            className="absolute cursor-pointer top-0 left-0 w-full h-full"
-            onClick={() => setDoctorFormIsShown(false)}
-          ></div>
-          <div className="absolute top-5 right-12">
-            <button
-              onClick={() => setDoctorFormIsShown(false)}
-              className="bg-white h-12 w-12 hover:opacity-60 transition-opacity text-black rounded-full flex items-center justify-center"
-            >
-              <Close color="inherit" />
-            </button>
-          </div>
-          <div className="p-3 z-10 md:w-1/2">
-            <DoctorForm setDoctorFormIsShown={setDoctorFormIsShown} />
-          </div>
-        </div>
-      )}
-      {appointmentFormIsShown && (
-        <div
-          style={{ height: "100vh", width: "100vw" }}
-          className="fixed flex items-center justify-center top-0 left-0 bg-black/50 z-50"
-        >
-          <div
-            className="absolute cursor-pointer top-0 left-0 w-full h-full"
-            onClick={() => setAppointmentFormIsShown(false)}
-          ></div>
-          <div className="absolute top-5 right-12">
-            <button
-              onClick={() => setAppointmentFormIsShown(false)}
-              className="bg-white h-12 w-12 hover:opacity-60 transition-opacity text-black rounded-full flex items-center justify-center"
-            >
-              <Close color="inherit" />
-            </button>
-          </div>
-          <div className="p-3 z-10 md:w-1/2">
-            <AppointmentForm
-              setAppointmentFormIsShown={setAppointmentFormIsShown}
-            />
+            {patientFormIsShown ? (
+              <PatientForm setPatientFormIsShown={setPatientFormIsShown} />
+            ) : doctorFormIsShown ? (
+              <DoctorForm setDoctorFormIsShown={setDoctorFormIsShown} />
+            ) : (
+              appointmentFormIsShown && (
+                <AppointmentForm
+                  setAppointmentFormIsShown={setAppointmentFormIsShown}
+                />
+              )
+            )}
           </div>
         </div>
       )}

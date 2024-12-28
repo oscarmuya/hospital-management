@@ -55,6 +55,9 @@ const AppointmentForm = ({ setAppointmentFormIsShown }: props) => {
       name: userData?.name,
       phone: userData?.phone,
       countryCode: userData?.countryCode,
+      finished: false,
+      cancelled: false,
+      confirmed: false,
     };
 
     addDoc(collection(db, "appointments"), appointmentData)
