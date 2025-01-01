@@ -107,7 +107,17 @@ const AppointmentTable = ({
       renderCell(params) {
         return (
           <div className="">
-            <h1>
+            <h1
+              className={`${
+                params.value
+                  ? "text-green-500"
+                  : params.row.cancelled
+                  ? "text-red-500"
+                  : params.row.confirmed
+                  ? "text-sky-500"
+                  : "text-orange-500"
+              } font-semibold`}
+            >
               {params.value
                 ? "Completed"
                 : params.row.cancelled

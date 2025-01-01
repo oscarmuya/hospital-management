@@ -94,9 +94,11 @@ function Navigation({
         {content.map((nav, key) => {
           return (
             <div key={key} className="">
-              <h4 className="capitalize text-gray-500 pt-2 mt-2 mb-1 px-4 text-sm">
-                {nav.type}
-              </h4>
+              {nav.type !== "" && (
+                <h4 className="capitalize text-gray-500 pt-2 mt-2 mb-1 px-4 text-sm">
+                  {nav.type}
+                </h4>
+              )}
 
               <div
                 title={nav.title}
@@ -110,7 +112,7 @@ function Navigation({
               >
                 <div style={{ flex: "0.1" }}>{nav.icon}</div>
                 <div style={{ flex: "0.8" }}>
-                  <h1 className="font-semibold text-base text-start">
+                  <h1 className="font-semibold text-sm text-start">
                     {nav.title}
                   </h1>
                 </div>

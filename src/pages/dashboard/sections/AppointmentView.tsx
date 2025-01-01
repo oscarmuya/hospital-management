@@ -1,4 +1,4 @@
-import { ChevronLeft, Close } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import { exactDateFormatter } from "../../../constants/helpers";
 import { appointmentProps } from "../../../types";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
@@ -8,11 +8,12 @@ import { CircularProgress } from "@mui/material";
 
 interface Params {
   id: string;
+  type: string;
   data: appointmentProps[];
   setActiveAppointment: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AppointmentView = ({ id, data, setActiveAppointment }: Params) => {
+const AppointmentView = ({ id, data, setActiveAppointment, type }: Params) => {
   const item = data.find((p) => p.id === id);
   const [finished, setFinished] = useState(item?.finished);
   const [confirmed, setConfirmed] = useState(item?.confirmed);
@@ -56,24 +57,31 @@ const AppointmentView = ({ id, data, setActiveAppointment }: Params) => {
         <div className="w-full shadow bg-white p-4 md:p-6 rounded">
           <div className="h-full w-full flex items-center justify-center">
             <div className="flex w-full flex-col gap-3">
-              <h1 className="text-sm font-semibold capitalize">Patient</h1>
-              <h1 className="text-sm font-semibold capitalize">{item?.name}</h1>
-
-              <h1 className="text-xl font-semibold capitalize">
-                {item?.brief_reason}
-              </h1>
-
               <div className="">
-                <h4 className="font-semibold">Description</h4>
-                <h3>{item?.description}</h3>
+                <h1 className="text-sm font-semibold">Patient name</h1>
+                <h1 className="text-sm capitalize">{item?.name}</h1>
               </div>
 
-              <h3 className="text-sm font-semibold">
-                {exactDateFormatter(new Date(item?.date ?? ""))} at {item?.time}
-              </h3>
+              <div className="">
+                <h1 className="text-sm font-semibold">Brief reason</h1>
+                <h1 className="text-sm">{item?.brief_reason}</h1>
+              </div>
+
+              <div className="">
+                <h4 className="font-semibold text-sm">Description</h4>
+                <h3 className="text-sm">{item?.description}</h3>
+              </div>
+
+              <div className="">
+                <h4 className="font-semibold text-sm">Date</h4>
+                <h3 className="text-sm">
+                  {exactDateFormatter(new Date(item?.date ?? ""))} at{" "}
+                  {item?.time}
+                </h3>
+              </div>
 
               <div className="border-t flex justify-between items-center w-full pt-4">
-                {!confirmed ? (
+                {!confirmed && type === "doctor_id" ? (
                   <button
                     onClick={() => markAppointment("confirmed")}
                     className="rounded w-48 h-12 text-white flex items-center justify-center bg-green-500"
@@ -88,7 +96,14 @@ const AppointmentView = ({ id, data, setActiveAppointment }: Params) => {
                   </button>
                 ) : (
                   <>
+                    {item?.confirmed_time && type === "patient_id" && (
+                      <h3 className="text-sm font-semibold">
+                        Confirmed at{" "}
+                        {exactDateFormatter(item.confirmed_time.toDate())}
+                      </h3>
+                    )}
                     {!cancelled &&
+                      type === "doctor_id" &&
                       (finished && !cancelled && item ? (
                         item.finished_time && (
                           <h3 className="text-sm font-semibold">

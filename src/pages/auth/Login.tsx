@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AlternateEmail, Key } from "@mui/icons-material";
 import { auth } from "../../firebase/firebase";
 import { useNavigate } from "react-router";
@@ -11,6 +11,16 @@ const Login = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/");
+      }
+    });
+
+    return unsub;
+  }, []);
 
   const handleLogin = (e: { preventDefault: () => void }) => {
     e.preventDefault();

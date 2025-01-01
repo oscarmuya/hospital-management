@@ -26,15 +26,16 @@ const Appointments = ({ id }: Props) => {
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [activeAppointment, setActiveAppointment] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const tableApiRef = useGridApiRef();
   const userData = useSelector(getUserData);
 
   useEffect(() => {
     if (userData) {
-      const q = query(
-        collection(db, "appointments"),
-        where(id, "==", userData.id)
-      );
+      const q =
+        id === "all_id"
+          ? query(collection(db, "appointments"))
+          : query(collection(db, "appointments"), where(id, "==", userData.id));
 
       const unsub = onSnapshot(q, (res) => {
         const t: appointmentProps[] = [];
@@ -43,6 +44,7 @@ const Appointments = ({ id }: Props) => {
           t.push({ id: item.id, ...item.data() });
         });
         setData(t);
+        setIsLoading(false);
       });
 
       return unsub;
@@ -90,6 +92,7 @@ const Appointments = ({ id }: Props) => {
             setActiveAppointment={setActiveAppointment}
             data={data}
             id={activeAppointment}
+            type={id}
           />
         )}
 
@@ -152,11 +155,17 @@ const Appointments = ({ id }: Props) => {
         </div>
 
         <div style={{ height: "90%" }} className="">
-          <AppointmentTable
-            setActiveAppointment={setActiveAppointment}
-            apiRef={tableApiRef}
-            data={data}
-          />
+          {isLoading ? (
+            <div className="h-full w-full flex items-center justify-center">
+              <CircularProgress color="inherit" size={25} />
+            </div>
+          ) : (
+            <AppointmentTable
+              setActiveAppointment={setActiveAppointment}
+              apiRef={tableApiRef}
+              data={data}
+            />
+          )}
         </div>
       </div>
     </div>

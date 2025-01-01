@@ -15,6 +15,7 @@ import DoctorForm from "./forms/DoctorForm";
 import Account from "./sections/account/Account";
 import AppointmentForm from "./forms/AppointmentForm";
 import Appointments from "./sections/Appointments";
+import Users from "./sections/users/Users";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -67,9 +68,15 @@ const Dashboard = () => {
   const tAdmin = [
     {
       icon: <DashboardIcon color="inherit" />,
-      title: "Dashboard",
-      action: () => setActive("Dashboard"),
+      title: "Users",
+      action: () => setActive("Users"),
       type: "admin",
+    },
+    {
+      icon: <Medication color="inherit" />,
+      title: "Appointments",
+      action: () => setActive("Appointments"),
+      type: "",
     },
   ];
 
@@ -82,6 +89,7 @@ const Dashboard = () => {
         type: string;
       }[] = [];
       if (userData.role === "admin") {
+        setActive("Users");
         r.push(...tAdmin);
       } else if (userData.role === "patient") {
         setActive("My Appointments");
@@ -155,11 +163,19 @@ const Dashboard = () => {
         >
           <div
             className="absolute cursor-pointer top-0 left-0 w-full h-full"
-            onClick={() => setPatientFormIsShown(false)}
+            onClick={() => {
+              setPatientFormIsShown(false);
+              setDoctorFormIsShown(false);
+              setAppointmentFormIsShown(false);
+            }}
           ></div>
           <div className="absolute top-5 right-12">
             <button
-              onClick={() => setPatientFormIsShown(false)}
+              onClick={() => {
+                setPatientFormIsShown(false);
+                setDoctorFormIsShown(false);
+                setAppointmentFormIsShown(false);
+              }}
               className="bg-white h-12 w-12 hover:opacity-60 transition-opacity text-black rounded-full flex items-center justify-center"
             >
               <Close color="inherit" />
@@ -195,7 +211,9 @@ const Dashboard = () => {
         } content overflow-hidden w-full`}
       >
         {active === "My Details" && <Account />}
+        {active === "Users" && <Users />}
         {active === "My Appointments" && <Appointments id="patient_id" />}
+        {active === "Appointments" && <Appointments id="all_id" />}
         {active === "Upcoming Appointments" && <Appointments id="doctor_id" />}
       </div>
     </div>
